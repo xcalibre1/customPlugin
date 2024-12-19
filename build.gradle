@@ -1,0 +1,39 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'  // To publish locally
+}
+
+group = 'org.customPlugin'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+gradlePlugin {
+    plugins {
+        create("projectTemplatePlugin") {
+            id = "org.customPlugin.project-template"
+            implementationClass = "org.customPlugin.ProjectTemplatePlugin"
+        }
+    }
+}
+
+publishing {
+//    publications {
+//        // Define the publication
+//        mavenJava(MavenPublication) {
+//            from components.java
+//        }
+//    }
+
+    repositories {
+        maven {
+            // Define the path to the local repository
+            url = uri("${project.rootDir}/local-repo")
+//            print("url"+url)// Modify the path as needed
+        }
+    }
+}
